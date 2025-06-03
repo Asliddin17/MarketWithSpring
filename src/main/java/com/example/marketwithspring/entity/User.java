@@ -3,6 +3,8 @@ package com.example.marketwithspring.entity;
 import com.example.marketwithspring.entity.enums.UserRole;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class User {
     private Long id;
@@ -10,9 +12,9 @@ public class User {
     private String email;
     private String password;
     private UserRole role;
-    private Complaint complaint;
+    private List<Complaint> complaints;
     private History history;
-    private Order order;
-    private Shop shop;
-    private Product product;
+    private List<Order> orders;
+    private List<Shop> shops;
+    private List<Product> products;
 }
