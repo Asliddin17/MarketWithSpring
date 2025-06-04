@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+  <tr>
+    <th>Shop Id</th>
+    <th>Shop Name</th>
+  </tr>
+  <tr th:each="shop : ${shops}">
+    <td th:text="${shop.id}">1</td>
+    <td th:text="${shop.name}">name</td>
+  </tr>
+</table>
+</body>
+</html>
