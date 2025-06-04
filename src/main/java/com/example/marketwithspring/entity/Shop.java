@@ -1,7 +1,9 @@
 package com.example.marketwithspring.entity;
 
+import java.util.List;
+
 public class Shop {
     private Long id;
     private String name;
-    private Product product;
+    private List<Product> products;
 }
