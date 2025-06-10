@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Products</title>
+  <style>
+    body { font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; height: 100vh; margin: 0; }
+    table { width: 80%; border-collapse: collapse; margin-top: 20px; }
+    table, th, td { border: 1px solid #ccc; }
+    th, td { padding: 10px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    tr:nth-child(even) { background-color: #f9f9f9; }
+    a, button { padding: 8px; background-color: #28a745; color: white; text-decoration: none; border: none; border-radius: 5px; cursor: pointer; margin-right: 5px; }
+    a:hover, button:hover { background-color: #218838; }
+    .delete-form { display: inline; }
+  </style>
+</head>
+<body>
+<h1>Products</h1>
+<a th:href="@{/product/create}">Add New Product</a>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Shop ID</th>
+    <th>Ratings</th>
+    <th>Count</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+  <tr th:each="product : ${products}">
+    <td th:text="${product.id}"></td>
+    <td th:text="${product.name}"></td>
+    <td th:text="${product.price}"></td>
+    <td th:text="${product.shop != null ? product.shop.id : 'N/A'}"></td>
+    <td th:text="${product.ratings}"></td>
+    <td th:text="${product.count}"></td>
+    <td th:text="${product.productStatus}"></td>
+    <td>
+      <a th:href="@{/product/view/{id}(id=${product.id})}">View</a>
+      <a th:href="@{/product/edit/{id}(id=${product.id})}">Edit</a>
+      <form class="delete-form" th:action="@{/product/delete/{id}(id=${product.id})}" method="post">
+        <button type="submit">Delete</button>
+      </form>
+    </td>
+  </tr>
+</table>
+<a th:href="@{/seller-cabinet}">Back to Seller Cabinet</a>
+</body>
+</html>

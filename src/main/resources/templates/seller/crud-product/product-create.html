@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Product</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            background-color: #f4f7fa;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 40px;
+            font-size: 2.5em;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .form-container {
+            width: 60%;
+            padding: 40px;
+            border-radius: 15px;
+            background-color: #fff;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        label {
+            display: block;
+            margin: 20px 0 10px;
+            color: #555;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1.1em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #28a745;
+            outline: none;
+            box-shadow: 0 0 8px rgba(40, 167, 69, 0.4);
+        }
+
+        button {
+            padding: 15px 30px;
+            background: linear-gradient(90deg, #28a745, #218838);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: 500;
+            transition: background 0.3s ease, transform 0.2s ease;
+            width: 100%;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #218838, #1e7e34);
+            transform: translateY(-3px);
+        }
+
+        a {
+            padding: 15px 30px;
+            background: linear-gradient(90deg, #dc3545, #c82333);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: 500;
+            transition: background 0.3s ease, transform 0.2s ease;
+            margin-top: 15px;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+
+        a:hover {
+            background: linear-gradient(90deg, #c82333, #bd2130);
+            transform: translateY(-3px);
+        }
+
+        .error {
+            color: #dc3545;
+            font-size: 0.9em;
+            margin-top: -15px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        input:invalid {
+            border-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+<h1>Create New Product</h1>
+<div th:if="${error}" class="error" th:text="${error}"></div>
+<div th:text="'Product: ' + ${product} + ', Shops: ' + ${shops}" th:unless="${#strings.isEmpty(product)}"></div>
+<form th:action="@{/product/create}" th:method="post" th:object="${product}">
+    <div class="form-container">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" th:field="*{name}" required>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" th:field="*{price}" step="0.01" required min="0">
+        <span class="error">Price must be 0 or greater.</span>
+
+        <label for="shopId">Shop ID:</label>
+        <select id="shopId" name="shop" th:field="*{shop.id}">
+<!--            <option value="">Select a Shop</option>-->
+            <option th:each="s : ${shops}"
+                    th:value="${s.id}"
+                    th:text="${s.id} + ' - ' + ${s.name}"
+                    th:selected="${product.shop != null and product.shop.id == s.id}"></option>
+        </select>
+
+        <label for="count">Count:</label>
+        <input type="number" id="count" name="count" th:field="*{count}" min="0">
+
+        <button type="submit">Save</button>
+    </div>
+</form>
+<a th:href="@{/product/products}">Cancel</a>
+</body>
+</html>
