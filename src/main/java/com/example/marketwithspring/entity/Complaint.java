@@ -1,5 +1,7 @@
 package com.example.marketwithspring.entity;
 
+import lombok.Data;
+
 import com.example.marketwithspring.entity.enums.CommentStatus;
 import lombok.Data;
 
