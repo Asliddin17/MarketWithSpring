@@ -111,7 +111,6 @@
 <body>
 <h1>Create New Product</h1>
 <div th:if="${error}" class="error" th:text="${error}"></div>
-<div th:text="'Product: ' + ${product} + ', Shops: ' + ${shops}" th:unless="${#strings.isEmpty(product)}"></div>
 <form th:action="@{/product/create}" th:method="post" th:object="${product}">
     <div class="form-container">
         <label for="name">Name:</label>
@@ -123,7 +122,6 @@
 
         <label for="shopId">Shop ID:</label>
         <select id="shopId" name="shop" th:field="*{shop.id}">
-<!--            <option value="">Select a Shop</option>-->
             <option th:each="s : ${shops}"
                     th:value="${s.id}"
                     th:text="${s.id} + ' - ' + ${s.name}"

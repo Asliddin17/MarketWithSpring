@@ -23,11 +23,22 @@ public class OrderDAO {
     public List<Order> getAllOrders() {
         String sql = "SELECT o.id AS order_id, u.id AS user_id, u.name AS user_name, p.id AS product_id, p.name AS product_name, " +
                 "o.quantity, o.status, o.created_at " +
-                "FROM order_table o " + // Corrected table name
-                "LEFT JOIN users u ON o.user_id = u.id " + // Corrected to match schema
-                "LEFT JOIN product p ON o.product_id = p.id " + // Corrected to match schema
+                "FROM order_table o " +
+                "LEFT JOIN users u ON o.user_id = u.id " +
+                "LEFT JOIN product p ON o.product_id = p.id " +
                 "ORDER BY o.id DESC";
         return jdbcTemplate.query(sql, new OrderRowMapperWithDetails());
+    }
+
+
+    public void processToConfirmed(Long id, User user, Product product, Integer quantity, OrderStatus status, LocalDateTime createdAt) {
+        String sql = "UPDATE order_table SET status = 'CONFIRMED' WHERE id = ? AND status = 'PROCESSING'";
+        int rowsAffected = jdbcTemplate.update(sql, id);
+        if (rowsAffected > 0) {
+            System.out.println("Order #" + id + " updated to CONFIRMED successfully.");
+        } else {
+            System.out.println("No order with ID " + id + " found in PROCESSING status.");
+        }
     }
 
     public Order getOrderById(Long id) {
