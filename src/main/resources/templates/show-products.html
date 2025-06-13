@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -147,13 +147,23 @@
         }
     </style>
 </head>
-
 <body>
-<h1>
-</h1>
-<br/>
-index html
-<a href="/sign-up">sign up</a>
-<a href="/user-cabinet">user cabinet</a>
+<table>
+    <tr>
+        <td>Product Name</td>
+        <td>Product Price</td>
+        <td>Shop</td>
+        <td>Ratings</td>
+        <td>Count</td>
+    </tr>
+    <tr th:each="pr : ${products}">
+        <td th:text="${pr.getName()}">1</td>
+        <td th:text="${pr.getPrice()}">name</td>
+        <td th:text="${pr.getShop().getName()}">name</td>
+        <td th:text="${pr.getRatings()}">name</td>
+        <td th:text="${pr.getCount()}">name</td>
+        <td><a th:href="@{'/buy-product/' + ${pr.id}}">BUY</a></td>
+    </tr>
+</table>
 </body>
 </html>

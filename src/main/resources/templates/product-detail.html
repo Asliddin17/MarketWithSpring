@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Product Details</title>
     <style>
         /* Reset & Base Layout */
         * {
@@ -146,14 +146,22 @@
             margin-top: 20px;
         }
     </style>
-</head>
 
+</head>
 <body>
-<h1>
-</h1>
-<br/>
-index html
-<a href="/sign-up">sign up</a>
-<a href="/user-cabinet">user cabinet</a>
+<h2>Product Details</h2>
+<div>
+    <p th:if="${error}" th:text="${error}" style="color: red"></p>
+    <p><strong>Name:</strong> <span th:text="${product.name}">Name</span></p>
+    <p><strong>Price:</strong> <span th:text="${product.price}">0.00</span></p>
+    <p><strong>Shop:</strong> <span th:text="${product.shop.name}">Shop Name</span></p>
+    <p><strong>Ratings:</strong> <span th:text="${product.ratings}">0</span></p>
+    <p><strong>Count:</strong> <span th:text="${product.count}">0</span></p>
+
+    <form th:action="@{'/order/' + ${product.id}}" method="post">
+        <button type="submit">Order Now</button>
+    </form>
+
+</div>
 </body>
 </html>

@@ -10,11 +10,11 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Component
-public class ShopDAO{
+public class UserShopDAO {
     private final JdbcTemplate jdbcTemplate;
 
 
     public List<Shop> getAllShops(){
-       return jdbcTemplate.query("select * from shops", BeanPropertyRowMapper.newInstance(Shop.class));
+       return jdbcTemplate.query("select * from shop", BeanPropertyRowMapper.newInstance(Shop.class));
     }
 }
