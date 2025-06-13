@@ -5,8 +5,6 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Data
-@Data
 public class Order {
     private Long id;
     private User user;
