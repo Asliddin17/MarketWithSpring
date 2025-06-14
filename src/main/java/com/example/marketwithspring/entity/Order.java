@@ -4,7 +4,7 @@ import com.example.marketwithspring.entity.enums.OrderStatus;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-@Data
+
 public class Order {
     private Long id;
     private User user;
