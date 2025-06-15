@@ -2,6 +2,7 @@ package com.example.marketwithspring.repository;
 
 import com.example.marketwithspring.entity.User;
 import com.example.marketwithspring.entity.enums.UserRole;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -29,7 +30,7 @@ public class UserDAO {
     }
 
     public void deductUserBalance(Long id, double price) {
-        jdbcTemplate.update("update users table set balance = balance - ? where id = ?", price, id);
+        jdbcTemplate.update("update users set balance = balance - ? where id = ?", price, id);
     }
 
     public User getUserByEmailAndPassword(String email, String password) {
@@ -42,5 +43,10 @@ public class UserDAO {
         }catch (EmptyResultDataAccessException e){
             return null;
         }
+    }
+
+    public void refundBalanceToUser(User user, Double price) {
+        price = price * 0.8;
+        jdbcTemplate.update("update users set balance = balance + ? where id = ?", price, user.getId());
     }
 }

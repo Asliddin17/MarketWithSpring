@@ -36,7 +36,17 @@ public class UserHistoryDAO {
     }
 
     public void addToHistory(User user, Product product, Long orderId) {
-        jdbcTemplate.update("insert into history_details(user_id, product_id, order_id, bought_at) values(?,?,?,?)",
-                user.getId(), product.getId(), orderId, LocalDateTime.now());
+        // 1. user uchun history id olib kelamiz yoki yaratamiz
+        String historyId = getOrCreateHistoryIdByUser(user);
+
+        // 2. tarixga yozamiz
+        jdbcTemplate.update(
+                "insert into history_orders(history_id, order_id, product_id, bought_at) values(?,?,?,?)",
+                Long.parseLong(historyId),
+                orderId,
+                product.getId(),
+                LocalDateTime.now()
+        );
     }
+
 }

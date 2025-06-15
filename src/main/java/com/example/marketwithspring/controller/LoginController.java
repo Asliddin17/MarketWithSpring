@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,7 +19,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String loginForm() {
-        return "login"; // login.html sahifasini ochadi
+        return "user/login"; // login.html sahifasini ochadi
     }
 
     @PostMapping("/login")
@@ -34,7 +35,13 @@ public class LoginController {
             return "redirect:/user-cabinet";
         } else {
             model.addAttribute("error", "Invalid credentials");
-            return "login";
+            return "user/login";
         }
+    }
+
+    @GetMapping("/user-cabinet")
+    public String userCabinet(@SessionAttribute("currentUser") User currentUser, Model model) {
+        model.addAttribute("currentUser", currentUser);
+        return "user/user-cabinet";
     }
 }

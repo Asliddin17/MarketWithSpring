@@ -2,7 +2,7 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Product Details</title>
+    <title>Title</title>
     <style>
         /* Reset & Base Layout */
         * {
@@ -146,22 +146,27 @@
             margin-top: 20px;
         }
     </style>
-
 </head>
 <body>
-<h2>Product Details</h2>
-<div>
-    <p th:if="${error}" th:text="${error}" style="color: red"></p>
-    <p><strong>Name:</strong> <span th:text="${product.name}">Name</span></p>
-    <p><strong>Price:</strong> <span th:text="${product.price}">0.00</span></p>
-    <p><strong>Shop:</strong> <span th:text="${product.shop.name}">Shop Name</span></p>
-    <p><strong>Ratings:</strong> <span th:text="${product.ratings}">0</span></p>
-    <p><strong>Count:</strong> <span th:text="${product.count}">0</span></p>
-
-    <form th:action="@{'/order/' + ${product.id}}" method="post">
-        <button type="submit">Order Now</button>
-    </form>
-
-</div>
+<table>
+    <tr>
+        <td>Product Name</td>
+        <td>Product Price</td>
+        <td>Shop</td>
+        <td>Ratings</td>
+        <td>Count</td>
+    </tr>
+    <tr th:each="pr : ${products}">
+        <td th:text="${pr.getName()}">1</td>
+        <td th:text="${pr.getPrice()}">name</td>
+        <td th:text="${pr.getShop().getName()}">name</td>
+        <td th:text="${pr.getRatings()}">name</td>
+        <td th:text="${pr.getCount()}">name</td>
+        <td>
+            <form th:action="@{'/comment/' + ${pr.getId()}}" method="post">
+                <button type="submit">write comment</button>
+            </form></td>
+    </tr>
+</table>
 </body>
 </html>

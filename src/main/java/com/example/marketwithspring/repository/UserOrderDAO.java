@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -39,7 +40,7 @@ public class UserOrderDAO {
             return ps;
         }, keyHolder);
 
-        return keyHolder.getKey().longValue();
+        return Objects.requireNonNull(keyHolder.getKey()).longValue();
     }
 
 
@@ -65,7 +66,7 @@ public class UserOrderDAO {
     }
 
     public void updateOrderStatus(Long orderId, OrderStatus orderStatus) {
-        jdbcTemplate.update("uptade orders table set status = ? where id = ?", orderStatus, orderId);
+        jdbcTemplate.update("uptade order_table set status = ? where id = ?", orderStatus, orderId);
     }
 
     public List<Order> getAllOrders() {

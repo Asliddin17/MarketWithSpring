@@ -150,21 +150,20 @@
 <body>
 <table>
     <tr>
-        <td>Product Name</td>
-        <td>Product Price</td>
+        <td>History Id</td>
+        <td>Product</td>
         <td>Shop</td>
-        <td>Ratings</td>
-        <td>Count</td>
+        <td>Order Status</td>
+        <td>Time</td>
     </tr>
-    <tr th:each="pr : ${products}">
-        <td th:text="${pr.getName()}">1</td>
-        <td th:text="${pr.getPrice()}">name</td>
-        <td th:text="${pr.getShop().getName()}">name</td>
-        <td th:text="${pr.getRatings()}">name</td>
-        <td th:text="${pr.getCount()}">name</td>
-        <td><form th:action="@{'/cancel-product/' + ${pr.id}}" method="post">
-            <button type="submit">Cancel Product</button>
-        </form></td>
+    <tr th:each="h : ${histories}">
+        <td th:text="${h.product.getId()}">1</td>
+        <td th:text="${h.product.getName()}">1</td>
+        <td th:text="${h.product.getShop().getName()}"></td>
+        <td th:text="${h.getOrderStatus()}"></td>
+        <td th:text="${h.getDateTime()}"></td>
+
+
     </tr>
 </table>
 </body>

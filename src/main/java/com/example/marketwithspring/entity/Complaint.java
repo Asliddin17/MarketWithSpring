@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 public class Complaint {
     private Long id;
     private String reason;
+    private Integer rating;
     private User filedBy;
     private CommentStatus status; // Kim complaint yubordi
     private Product ratingProduct;  // Qaysi productga complaint

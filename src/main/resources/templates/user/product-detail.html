@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Details</title>
+    <style>
+        /* Reset & Base Layout */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f2f4f7;
+            color: #1f2937;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        /* Form Styling */
+        form {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.04);
+            margin-top: 10px;
+        }
+
+        form div {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="number"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background-color: #ffffff;
+            font-size: 15px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 8px;
+            background-color: #3b82f6;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2563eb;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+            margin-top: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background-color: #f3f4f6;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        tr:hover {
+            background-color: #f0f9ff;
+        }
+
+        /* Anchor Styling */
+        a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease, text-decoration 0.2s ease;
+        }
+
+        a:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        /* Utilities */
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+    </style>
+
+</head>
+<body>
+<h2 class="mb-20">Product Details</h2>
+
+<div class="container">
+
+    <!-- Product Info Box -->
+    <div class="mb-20" style="background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+        <p><strong>Name:</strong> <span th:text="${product.name}">Name</span></p>
+        <p><strong>Price:</strong> <span th:text="${product.price}">0.00</span> UZS</p>
+        <p><strong>Shop:</strong> <span th:text="${product.shop.name}">Shop Name</span></p>
+        <p><strong>Available Count:</strong> <span th:text="${product.count}">0</span></p>
+        <p><strong>Total Ratings:</strong> <span th:text="${product.ratings}">0</span></p>
+        <p><strong>Average Rating:</strong> <span th:text="${avg}">0.0</span></p>
+    </div>
+    <!-- Order Button -->
+    <form th:action="@{'/order/' + ${product.id}}" method="post" class="mt-20">
+        <button type="submit">Order Now</button>
+    </form>
+
+    <!-- Comments Section -->
+    <h3 class="mb-20">Customer Reviews</h3>
+    <div th:if="${#lists.isEmpty(comments)}">
+        <p>No comments yet. Be the first to review!</p>
+    </div>
+
+    <div th:each="c : ${comments}" style="margin-bottom: 15px;">
+        <div style="background-color: #f9fafb; padding: 15px; border-left: 4px solid #3b82f6; border-radius: 6px;">
+            <p><strong>User:</strong> <span th:text="${c.filedBy.name}">User Name</span></p>
+            <p><strong>Rating:</strong> <span th:text="${c.rating}">0</span></p>
+            <p><strong>Comment:</strong> <span th:text="${c.reason}">No comment</span></p>
+        </div>
+    </div>
+
+</div>
+</body>
+
+</html>

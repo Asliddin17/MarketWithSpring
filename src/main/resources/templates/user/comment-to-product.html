@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>User cabinet</title>
+    <title>Title</title>
     <style>
         /* Reset & Base Layout */
         * {
@@ -148,15 +148,30 @@
     </style>
 </head>
 <body>
-    <h1>User cabinet</h1>
+<div>
+    <p th:text="${product.getName()}"></p>
+    <p th:text="${product.getShop().getName()}"></p>
+    <p th:text="${product.getCount()}"></p>
+    <p th:text="${product.getRatings()}"></p>
+    <p th:text="${product.getPrice()}"></p>
+    <p th:text="${product.getProductStatus()}"></p>
+</div>
+<form th:action="@{'/comment-to-product/' + ${product.id}}" method="post">
+    <select name="rating" required>
+        <option value="">Select rating</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>
 
-<a href="/show-shops">Show shops</a>
-<a href="/buy-product">Buy Product</a>
-<a href="/cancel-product">Cancel Product</a>
-<a href="/my-products">My Products</a>
-<a href="/my-orders">My Orders</a>
-<a href="/history">History</a>
-<a href="/deposit">Deposit</a>
+    <input type="text" name="reason" placeholder="Enter comment" required>
+
+    <button type="submit">Submit</button>
+</form>
+
+</tr>
 
 </body>
 </html>
