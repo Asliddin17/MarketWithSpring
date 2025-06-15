@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Status Dashboard</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      background-color: #f4f7fa;
+      min-height: 100vh;
+    }
+
+    h1 {
+      color: #333;
+      margin-top: 40px;
+      font-size: 2.5em;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .container {
+      width: 80%;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #28a745;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .status-processing {
+      color: #ffc107;
+      font-weight: bold;
+    }
+
+    .status-confirmed {
+      color: #28a745;
+      font-weight: bold;
+    }
+
+    .status-cancelled {
+      color: #dc3545;
+      font-weight: bold;
+    }
+
+    .status-new {
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    .confirm-button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .confirm-button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+<h1>Order Status Dashboard</h1>
+<div class="container">
+  <table>
+    <tr>
+      <th>Order ID</th>
+      <th>User</th>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Status</th>
+      <th>Created At</th>
+      <th>Action</th>
+    </tr>
+    <tr th:each="order : ${orders}">
+      <td th:text="${order.id}"></td>
+      <td th:text="${order.user != null ? order.user.id : 'N/A'}"></td>
+      <td th:text="${order.product != null ? order.product.name : 'N/A'}"></td>
+      <td th:text="${order.quantity}"></td>
+      <td th:text="${order.status}">
+        <span th:switch="${order.status}">
+          <span th:case="${T(com.example.marketwithspring.entity.enums.OrderStatus).PROCESSING}" th:class="'status-processing'">Processing</span>
+          <span th:case="${T(com.example.marketwithspring.entity.enums.OrderStatus).CONFIRMED}" th:class="'status-confirmed'">Confirmed</span>
+          <span th:case="${T(com.example.marketwithspring.entity.enums.OrderStatus).CANCELLED}" th:class="'status-cancelled'">Cancelled</span>
+          <span th:case="${T(com.example.marketwithspring.entity.enums.OrderStatus).NEW}" th:class="'status-new'">New</span>
+          <span th:case="*">Unknown</span>
+        </span>
+      </td>
+      <td th:text="${#temporals.format(order.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+      <td>
+        <form th:if="${order.status == T(com.example.marketwithspring.entity.enums.OrderStatus).PROCESSING}"
+              th:action="@{/seller/orders/{id}/confirm(id=${order.id})}" method="post">
+          <button type="submit" class="confirm-button">Confirm</button>
+        </form>
+      </td>
+    </tr>
+  </table>
+</div>
+<br>
+<a th:href="@{/seller-cabinet}">Back to Seller Cabinet</a></body>
+</html>

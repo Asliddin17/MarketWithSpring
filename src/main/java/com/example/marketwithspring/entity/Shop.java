@@ -3,8 +3,8 @@ package com.example.marketwithspring.entity;
 import lombok.Data;
 
 import java.util.List;
-@Data
 
+@Data
 public class Shop {
     private Long id;
     private String name;
