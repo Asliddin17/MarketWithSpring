@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -141,7 +140,7 @@ public class UserService {
         userDAO.refundBalanceToUser(currentUser, product.getPrice());
         User updatedUser = userDAO.getUserById(currentUser.getId());
         session.setAttribute("currentUser", updatedUser);
-        userProductDAO.increaseProductCount(id);
+        userProductDAO.increaseProductCount(product.getId());
         return "redirect:/user-cabinet";
     }
 

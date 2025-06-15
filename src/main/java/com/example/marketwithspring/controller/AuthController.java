@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class AuthController {
-
     @GetMapping("/")
     public String home(Model model){
-        return "user/login";
+        return "index";
     }
 
 }
