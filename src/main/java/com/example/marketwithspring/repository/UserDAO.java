@@ -49,4 +49,9 @@ public class UserDAO {
         price = price * 0.8;
         jdbcTemplate.update("update users set balance = balance + ? where id = ?", price, user.getId());
     }
+
+    public void saveUser(User user) {
+        jdbcTemplate.update("insert into users(name, email, password, balance, role) values (?,?,?,?,?)",
+                user.getName(), user.getEmail(), user.getPassword(), user.getBalance(), UserRole.USER.name());
+    }
 }

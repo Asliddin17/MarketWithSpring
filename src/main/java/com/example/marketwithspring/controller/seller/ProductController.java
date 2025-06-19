@@ -26,6 +26,23 @@ public class ProductController {
         return "seller/crud-product/products";
     }
 
+
+
+//    @GetMapping("/products")
+//    public String getProducts(Model model) {
+//        List<Product> products = productDAO.getAllProducts();
+//
+//        // Set avgRating manually for each product
+//        for (Product product : products) {
+//            double avg = productDAO.getAvgRatingForProduct(product.getId());
+//        model.addAttribute("avg", avg);
+//        }
+//
+//        model.addAttribute("products", products);
+//        return "seller/crud-product/products";
+//    }
+
+
     @GetMapping("/view/{id}")
     public String getProductById(@PathVariable("id") Long id, Model model) {
         Product product = productDAO.getProductById(id);

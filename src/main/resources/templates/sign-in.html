@@ -1,8 +1,8 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Sign-in</title>
     <style>
         /* Reset & Base Layout */
         * {
@@ -147,22 +147,11 @@
         }
     </style>
 </head>
-
 <body>
-<h1>
-Welcome
-</h1>
-<br/>
-<br>
-<br>
-<br>
-<br>
-<a href="/sign-up">sign up</a>
-<a href="/sign-in">sign in</a>
-
-
-<!--<a href="/login">user cabinet</a>-->
-<!--<br>-->
-<!--<a href="/seller-cabinet">Seller Cabinet</a>-->
+<form action="/sign-in" method="post">
+    <input type="email" name="email" placeholder="Enter email">
+    <input type="password" name="password" placeholder="Enter password">
+    <button type="submit">send</button>
+</form>
 </body>
 </html>

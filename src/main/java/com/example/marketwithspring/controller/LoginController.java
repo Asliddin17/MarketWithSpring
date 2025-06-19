@@ -17,6 +17,7 @@ public class LoginController {
 
     private final UserDAO userDAO;
 
+
     @GetMapping("/login")
     public String loginForm() {
         return "user/login"; // login.html sahifasini ochadi
